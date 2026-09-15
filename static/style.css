@@ -1,0 +1,85 @@
+:root {
+    --primary-color: sandybrown;
+    --primary-color-semi-transparent: rgba(244, 164, 96, 0.5);
+    --secondary-color: white;
+    --font-family: Arial, sans-serif;
+    --box-shadow-large: 0 0 8px rgba(0, 0, 0, 0.5);
+    --box-shadow-small: 0 0 4px rgba(0, 0, 0, 0.3);
+    --border-radius: 8px;
+    --nav-height: 60px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: var(--font-family);
+    background-color: var(--secondary-color);
+}
+
+.centered {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 2rem;
+}
+
+.container {
+    min-height: calc(100vh - var(--nav-height));
+    padding: 2rem;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    box-shadow: var(--box-shadow-large);
+    height: var(--nav-height);
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+}
+
+button {
+    width: 100%;
+    max-width: 100px;
+    height: 100%;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    box-shadow: var(--box-shadow-small);
+    font-weight: bold;
+}
+
+.row {
+    display: flex;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+@media screen and (max-width: 400px) {
+  .navigation, .container {
+    padding: 1rem;
+  }
+}
