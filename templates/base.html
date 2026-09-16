@@ -10,6 +10,13 @@
     <nav>
         <div class="centered navigation">
             <h1>Social Media</h1>
+            <form method="post" action="{{ url_for('logout' if session.get('name') else 'login') }}">
+                {% if session.get('name') %}
+                    <button type="submit">Logout</button>
+                {% else %}
+                    <button type="submit">Login</button>
+                {% endif %}
+            </form>
         </div>
     </nav>
 
