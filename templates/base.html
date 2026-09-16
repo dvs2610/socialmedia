@@ -9,7 +9,7 @@
 <body>
     <nav>
         <div class="centered navigation">
-            <h1>Social Media</h1>
+            <a href="{{ url_for('index') }}"><h1>Social Media</h1></a>
             <form method="post" action="{{ url_for('logout' if session.get('name') else 'login') }}">
                 {% if session.get('name') %}
                     <button type="submit">Logout</button>

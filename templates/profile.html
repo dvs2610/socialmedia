@@ -2,9 +2,23 @@
 
 {% block content %}
     <div class="centered container">
-        <p>This is a profile.</p>
         {% if current_user == username %}
-            <p>This should only be visible if the profile is the current users own.</p>
+            <p>This is my profile.</p>
+        {% endif %}
+
+        {% if user %}
+            <div class="profile-card">
+                <img class="avatar" src="{{ url_for('static', filename=user.avatar or 'user-avatar.jpg') }}">
+                <div class="profile-card-info">
+                    <p>Username: {{user.username}}</p>
+                    <p>Name: {{user.fullname if user.fullname else ''}}</p>
+                    <p>Birthday: {{user.birthday.strftime('%d-%m-%Y') if user.birthday else ''}}</p>
+                    <p>Location: {{user.location if user.location else ''}}</p>
+                    <p>Something fun: {{user.something_fun if user.something_fun else ''}}</p>
+                </div>
+            </div>
+        {% else %}
+            <p>Profile not found.</p>
         {% endif %}
     </div>
 {% endblock %}
