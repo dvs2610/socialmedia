@@ -1,0 +1,82 @@
+[
+    {
+        "username": "someone",
+        "password": "testpassword",
+        "birthday": "1995-04-12",
+        "fullname": "Someone Example",
+        "location": "Amsterdam",
+        "something_fun": "Loves trying new recipes"
+    },
+    {
+        "username": "alex",
+        "password": "testpassword",
+        "birthday": "1998-09-23",
+        "fullname": "Alex Morgan",
+        "location": "Rotterdam",
+        "something_fun": "Collects vinyl records"
+    },
+    {
+        "username": "blair",
+        "password": "testpassword",
+        "birthday": "1992-01-17",
+        "fullname": "Blair Johnson",
+        "location": "Utrecht",
+        "something_fun": "Runs every morning"
+    },
+    {
+        "username": "casey",
+        "password": "testpassword",
+        "birthday": "2000-06-05",
+        "fullname": "Casey Lee",
+        "location": "Delft",
+        "something_fun": "Builds tiny robots"
+    },
+    {
+        "username": "drew",
+        "password": "testpassword",
+        "birthday": "1997-11-30",
+        "fullname": "Drew Taylor",
+        "location": "Haarlem",
+        "something_fun": "Knows every board game"
+    },
+    {
+        "username": "emery",
+        "password": "testpassword",
+        "birthday": "1994-03-08",
+        "fullname": "Emery Wilson",
+        "location": "Leiden",
+        "something_fun": "Takes film photos"
+    },
+    {
+        "username": "frankie",
+        "password": "testpassword",
+        "birthday": "1999-07-21",
+        "fullname": "Frankie Brown",
+        "location": "Eindhoven",
+        "something_fun": "Makes excellent pancakes"
+    },
+    {
+        "username": "harper",
+        "password": "testpassword",
+        "birthday": "1996-12-14",
+        "fullname": "Harper Davis",
+        "location": "Groningen",
+        "something_fun": "Speaks three languages"
+    },
+    {
+        "username": "jordan",
+        "password": "testpassword",
+        "birthday": "1993-08-02",
+        "fullname": "Jordan Miller",
+        "location": "Maastricht",
+        "something_fun": "Plays the saxophone"
+    },
+    {
+        "username": "riley",
+        "password": "testpassword",
+        "birthday": "2001-02-26",
+        "fullname": "Riley Anderson",
+        "location": "The Hague",
+        "something_fun": "Always has a book nearby"
+    }
+]

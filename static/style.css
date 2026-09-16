@@ -22,6 +22,12 @@ html, body {
     background-color: var(--secondary-color);
 }
 
+a, a:visited {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
 .centered {
     max-width: 800px;
     margin: 0 auto;
@@ -75,6 +81,32 @@ button {
 button:hover {
     background-color: lightgray;
     color: black;
+}
+
+img.avatar {
+    width: 250px;
+    height: 250px;
+    border: 3px solid var(--primary-color-semi-transparent);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-small);
+}
+
+.profile-card {
+    display: flex;
+    gap: 2rem;
+}
+
+.profile-card-info {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.profile-card-info p + p {
+    border-top: 1px solid rgb(220, 220, 220);
+    padding-top: 1rem;
 }
 
 /* .row {
