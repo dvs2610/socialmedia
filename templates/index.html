@@ -2,6 +2,10 @@
 
 {% block content %}
     <div class="centered container">
-        <p>Something!</p>
+        {% if current_user %}
+            <p>Logged in as: {{ current_user }}</p>
+        {% else %}
+            <p>You are not logged in.</p>
+        {% endif %}
     </div>
 {% endblock %}

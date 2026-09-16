@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="centered container">
+        <p>This is a profile.</p>
+        {% if current_user == username %}
+            <p>This should only be visible if the profile is the current users own.</p>
+        {% endif %}
+    </div>
+{% endblock %}
