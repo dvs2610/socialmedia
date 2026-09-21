@@ -57,11 +57,21 @@ nav {
     height: var(--nav-height);
 }
 
-input[type="text"] {
-    width: 100%;
-    padding: 0.5rem;
+input[type="text"], input[type="password"] {
+    /* width: 100%; */
+    padding: 0.25rem;
     border: 1px solid #ccc;
     border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
 }
 
 button {

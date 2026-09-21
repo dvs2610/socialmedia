@@ -1,16 +1,20 @@
 import bcrypt
 import json
+import secrets
 from pathlib import Path
 from datetime import datetime
-from flask import Flask, redirect, render_template, url_for, session
+from flask import Flask, redirect, render_template, url_for, session, request
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session
 from models import Base, User
 
-# As of now public for first try, change to actual secret variable or os.environ.get
 app = Flask(__name__)
-app.config["SECRET_KEY"]="43A2E58F63F24669186D7A8F8B6DF5593C3FF11B53E4FBDA13691AB98441E85AEB32479C3365E6144A3AE72"
+SECRET_KEY_FILE = Path(__file__).with_name("secret_key.txt")
+if not SECRET_KEY_FILE.exists():
+	SECRET_KEY_FILE.write_text(secrets.token_hex(32), encoding="utf-8")
+app.config["SECRET_KEY"] = SECRET_KEY_FILE.read_text(encoding="utf-8").strip()
 engine = create_engine("sqlite:///socialmedia.db", echo=True)
+
 SEED_USERS_FILE = Path(__file__).with_name("seed_users.json")
 
 def initialize_database():
@@ -41,6 +45,15 @@ def initialize_database():
 
 initialize_database()
 
+@app.before_request
+def check_logged_in():
+	# prevent endless loop from login page itself and exception for static (css) and signup
+	if request.endpoint in {"login", "static", "signup"}:
+		return None
+	
+	if not session.get("name"):
+		return redirect(url_for('login'))
+
 @app.context_processor
 def current_user():
 	return {
@@ -60,9 +73,45 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-	if not session.get("name"):
-		session["name"] = "logged_in_user_hi"
-	return redirect(url_for("index"))
+	if session.get("name"):
+		return redirect(url_for("index"))
+	if request.method == "POST":
+		username = request.form.get("username", "")
+		password = request.form.get("password", "")
+		with Session(engine) as db:
+			user = db.scalar(select(User).where(User.username == username))
+		if user and bcrypt.checkpw(password.encode("utf-8"), user.password_hash.encode("utf-8")):
+			session["name"] = user.username
+			return redirect(url_for("index"))
+	return render_template('login.html')
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+	if request.method == "POST":
+		username = request.form.get("username", "")
+		password = request.form.get("password", "")
+		birthday = request.form.get("birthday", "")
+		fullname = request.form.get("fullname", "")
+		location = request.form.get("location", "")
+		bio = request.form.get("bio", "")
+
+		# Todo: check if username already exists before adding to database.
+
+		with Session(engine) as db:
+			db.add(User(
+				username=username,
+				password_hash=bcrypt.hashpw(
+					password.encode("utf-8"),
+					bcrypt.gensalt()
+				).decode("utf-8"),
+				birthday=datetime.fromisoformat(birthday) if birthday else None,
+				fullname=fullname or None,
+				location=location or None,
+				something_fun=bio or None,
+			))
+			db.commit()
+			return redirect(url_for("index"))
+	return render_template('signup.html')
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
@@ -77,4 +126,4 @@ def profile(username):
 	return render_template('profile.html', username=username, user=user)
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run()

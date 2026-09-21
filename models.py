@@ -13,6 +13,7 @@ class Base(DeclarativeBase):
 
 class User(Base):
     __tablename__ = "users"
+    
     username: Mapped[str] = mapped_column(String(10), primary_key=True)
     # later add nullable=False to password_hash, but now ok for testing
     password_hash: Mapped[str] = mapped_column(String(255))

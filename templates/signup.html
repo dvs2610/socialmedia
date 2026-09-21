@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="centered container">
+        <h1>Sign up</h1>
+        <form method="post">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password">
+            <label for="username">Birthday (optional)</label>
+            <input id="username" name="birthday" type="text">
+            <label for="username">Full name (optional)</label>
+            <input id="username" name="fullname" type="text">
+            <label for="username">Location (optional)</label>
+            <input id="username" name="location" type="text">
+            <label for="username">Something fun (optional)</label>
+            <input id="username" name="bio" type="text">
+            <input type="submit" value="Create account">
+        </form>
+    </div>
+{% endblock %}

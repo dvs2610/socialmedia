@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="centered container">
+        <h1>Login</h1>
+        <form method="post">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password">
+            <input type="submit" value="Login">
+        </form>
+        
+        <p>Haven't got an account yet? Sign up <a href="{{url_for('signup')}}">here!</a></p>
+        <a href="{{url_for('signup')}}"><button>Sign up</button></a>
+    </div>
+{% endblock %}

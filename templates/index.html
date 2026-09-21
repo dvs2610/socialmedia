@@ -3,9 +3,7 @@
 {% block content %}
     <div class="centered container">
         {% if current_user %}
-            <p>Logged in as: {{ current_user }}</p>
-        {% else %}
-            <p>You are not logged in.</p>
+            <p>Hi, {{ current_user }}!</p>
         {% endif %}
 
         <h2>Profiles</h2>

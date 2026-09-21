@@ -10,13 +10,11 @@
     <nav>
         <div class="centered navigation">
             <a href="{{ url_for('index') }}"><h1>Social Media</h1></a>
-            <form method="post" action="{{ url_for('logout' if session.get('name') else 'login') }}">
-                {% if session.get('name') %}
-                    <button type="submit">Logout</button>
-                {% else %}
-                    <button type="submit">Login</button>
-                {% endif %}
-            </form>
+            {% if session.get('name') %}
+                <a href="{{url_for('logout')}}"><button>Logout</button></a>
+            {% else %}
+                <a href="{{url_for('login')}}"><button>Login</button></a>
+            {% endif %}
         </div>
     </nav>
 
