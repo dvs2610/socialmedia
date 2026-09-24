@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="centered container">
+        <h1>Register</h1>
+        <form method="post">
+            {{ form.hidden_tag() }}
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" value="{{ form.username.data or '' }}">
+            {% for error in form.username.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password">
+            {% for error in form.password.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+            <label for="confirm-password">Confirm Password</label>
+            <input id="confirm-password" name="confirm" type="password">
+            {% for error in form.confirm.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+            <label for="birthday">Birthday (optional)</label>
+            <input id="birthday" name="birthday" type="date" value="{{ form.birthday.data or '' }}">
+            {% for error in form.birthday.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+            <label for="fullname">Full name (optional)</label>
+            <input id="fullname" name="fullname" type="text" value="{{ form.fullname.data or '' }}">
+            {% for error in form.fullname.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+            <label for="location">Location (optional)</label>
+            <input id="location" name="location" type="text" value="{{ form.location.data or '' }}">
+            {% for error in form.location.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+            <label for="bio">Something fun (optional)</label>
+            <input id="bio" name="bio" type="text" value="{{ form.bio.data or '' }}">
+            {% for error in form.bio.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+            <input type="submit" value="Create account">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="messages">
+                        {% for category, message in messages %}
+                            <p class="message {{ category }}">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </form>
+    </div>
+{% endblock %}

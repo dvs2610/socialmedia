@@ -7,14 +7,17 @@
         {% endif %}
 
         <h2>Profiles</h2>
-        {% for user in all_users %}
-            <p>
+        <div class="grid-profiles">
+            {% for user in all_users %}
                 <a href="{{ url_for('profile', username=user.username) }}">
-                    {{ user.username }}
+                    <div class="profile-preview">
+                        <img class="avatar" src="{{ url_for('static', filename=user.avatar or 'user-avatar.jpg') }}">
+                        <h3>{{ user.username }}</h3>
+                    </div>
                 </a>
-            </p>
-        {% else %}
-            <p>No users found.</p>
-        {% endfor %}
+            {% else %}
+                <p>No users found.</p>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

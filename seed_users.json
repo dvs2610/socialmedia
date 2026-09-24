@@ -1,79 +1,79 @@
 [
     {
-        "username": "someone",
-        "password": "testpassword",
+        "username": "amara",
+        "password": "test",
         "birthday": "1995-04-12",
-        "fullname": "Someone Example",
+        "fullname": "Amara Okafor",
         "location": "Amsterdam",
         "something_fun": "Loves trying new recipes"
     },
     {
-        "username": "alex",
-        "password": "testpassword",
+        "username": "elias",
+        "password": "test",
         "birthday": "1998-09-23",
-        "fullname": "Alex Morgan",
+        "fullname": "Elias Nakamura",
         "location": "Rotterdam",
         "something_fun": "Collects vinyl records"
     },
     {
-        "username": "blair",
-        "password": "testpassword",
+        "username": "lina",
+        "password": "test",
         "birthday": "1992-01-17",
-        "fullname": "Blair Johnson",
+        "fullname": "Lina Haddad",
         "location": "Utrecht",
         "something_fun": "Runs every morning"
     },
     {
-        "username": "casey",
-        "password": "testpassword",
+        "username": "mateo",
+        "password": "test",
         "birthday": "2000-06-05",
-        "fullname": "Casey Lee",
+        "fullname": "Mateo Alvarez",
         "location": "Delft",
         "something_fun": "Builds tiny robots"
     },
     {
-        "username": "drew",
-        "password": "testpassword",
+        "username": "yasmin",
+        "password": "test",
         "birthday": "1997-11-30",
-        "fullname": "Drew Taylor",
+        "fullname": "Yasmin Rahman",
         "location": "Haarlem",
         "something_fun": "Knows every board game"
     },
     {
-        "username": "emery",
-        "password": "testpassword",
+        "username": "kenji",
+        "password": "test",
         "birthday": "1994-03-08",
-        "fullname": "Emery Wilson",
+        "fullname": "Kenji Tanaka",
         "location": "Leiden",
         "something_fun": "Takes film photos"
     },
     {
-        "username": "frankie",
-        "password": "testpassword",
+        "username": "sofia",
+        "password": "test",
         "birthday": "1999-07-21",
-        "fullname": "Frankie Brown",
+        "fullname": "Sofia Petrova",
         "location": "Eindhoven",
         "something_fun": "Makes excellent pancakes"
     },
     {
         "username": "harper",
-        "password": "testpassword",
+        "password": "test",
         "birthday": "1996-12-14",
         "fullname": "Harper Davis",
         "location": "Groningen",
         "something_fun": "Speaks three languages"
     },
     {
-        "username": "jordan",
-        "password": "testpassword",
+        "username": "zayn",
+        "password": "test",
         "birthday": "1993-08-02",
-        "fullname": "Jordan Miller",
+        "fullname": "Zayn Qureshi",
         "location": "Maastricht",
         "something_fun": "Plays the saxophone"
     },
     {
         "username": "riley",
-        "password": "testpassword",
+        "password": "test",
         "birthday": "2001-02-26",
         "fullname": "Riley Anderson",
         "location": "The Hague",

@@ -1,6 +1,6 @@
 from typing import List
 from typing import Optional
-from datetime import datetime
+from datetime import date, datetime
 from sqlalchemy import ForeignKey
 from sqlalchemy import String
 from sqlalchemy.orm import DeclarativeBase
@@ -19,7 +19,7 @@ class User(Base):
     password_hash: Mapped[str] = mapped_column(String(255))
     avatar: Mapped[Optional[str]]
     fullname: Mapped[Optional[str]] = mapped_column(String(80))
-    birthday: Mapped[Optional[datetime]]
+    birthday: Mapped[Optional[date]]
     location: Mapped[Optional[str]] = mapped_column(String(80))
     something_fun: Mapped[Optional[str]] = mapped_column(String(250))
     posts: Mapped[List["Post"]] = relationship(back_populates="author")

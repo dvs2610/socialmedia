@@ -57,12 +57,10 @@ nav {
     height: var(--nav-height);
 }
 
-input[type="text"], input[type="password"] {
-    /* width: 100%; */
+input[type="text"], input[type="password"], input[type="date"] {
     padding: 0.25rem;
     border: 1px solid #ccc;
     border-radius: var(--border-radius);
-    margin-bottom: 1rem;
 }
 
 form {
@@ -72,9 +70,15 @@ form {
 
 label {
     font-weight: bold;
+    margin-top: 1rem;
 }
 
-button {
+.error {
+    font-weight: bold;
+    color: red;
+}
+
+button, input[type="submit"] {
     width: 100%;
     max-width: 100px;
     height: 100%;
@@ -93,7 +97,15 @@ button:hover {
     color: black;
 }
 
-img.avatar {
+.profile-preview img.avatar {
+    width: 100px;
+    height: 100px;
+    border: 2px solid var(--primary-color-semi-transparent);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-small);
+}
+
+.profile-card img.avatar {
     width: 250px;
     height: 250px;
     border: 3px solid var(--primary-color-semi-transparent);
@@ -119,11 +131,12 @@ img.avatar {
     padding-top: 1rem;
 }
 
-/* .row {
-    display: flex;
-    margin-left: auto;
-    flex-shrink: 0;
-} */
+.grid-profiles {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 2rem;
+}
+
 
 @media screen and (max-width: 400px) {
   .navigation, .container {
