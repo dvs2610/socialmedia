@@ -17,6 +17,12 @@
                     <p>Something fun: {{user.something_fun if user.something_fun else ''}}</p>
                 </div>
             </div>
+            <div class="posts">
+                <h2>Posts</h2>
+                {% for post in posts %}
+                    <p>{{ post.content }}</p>
+                {% endfor %}
+            </div>
         {% else %}
             <p>Profile not found.</p>
         {% endif %}

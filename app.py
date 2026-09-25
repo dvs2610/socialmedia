@@ -6,7 +6,7 @@ from datetime import date, datetime
 from flask import Flask, flash, redirect, render_template, url_for, session, request
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session
-from models import Base, User
+from models import Base, Post, User
 from wtforms import DateField, StringField, PasswordField, validators
 from flask_wtf import FlaskForm
 
@@ -18,6 +18,7 @@ app.config["SECRET_KEY"] = SECRET_KEY_FILE.read_text(encoding="utf-8").strip()
 engine = create_engine("sqlite:///socialmedia.db", echo=True)
 
 SEED_USERS_FILE = Path(__file__).with_name("seed_users.json")
+SEED_POSTS_FILE = Path(__file__).with_name("seed_posts.json")
 
 def initialize_database():
 	Base.metadata.create_all(engine)
@@ -25,8 +26,12 @@ def initialize_database():
 	with SEED_USERS_FILE.open(encoding="utf-8") as seed_file:
 		seed_users = json.load(seed_file)
 
+	with SEED_POSTS_FILE.open(encoding="utf-8") as seed_file:
+		seed_posts = json.load(seed_file)
+
 	with Session(engine) as db:
 		existing_usernames = set(db.scalars(select(User.username)).all())
+		existing_post_ids = set(db.scalars(select(Post.id)).all())
 		for seed_user in seed_users:
 			seed_birthday = date.fromisoformat(seed_user["birthday"])
 			if seed_user["username"] in existing_usernames:
@@ -43,7 +48,19 @@ def initialize_database():
 				location=seed_user.get("location"),
 				something_fun=seed_user.get("something_fun"),
 			))
-			db.commit()
+
+		for seed_post in seed_posts:
+			if seed_post["id"] in existing_post_ids:
+				continue
+
+			db.add(Post(
+				id=seed_post["id"],
+				author_username=seed_post["author_username"],
+				content=seed_post["content"],
+				created_at=datetime.fromisoformat(seed_post["created_at"]),
+			))
+			
+		db.commit()
 
 initialize_database()
 
@@ -143,7 +160,12 @@ def logout():
 def profile(username):
 	with Session(engine) as db:
 		user = db.scalar(select(User).where(User.username == username))
-	return render_template('profile.html', username=username, user=user)
+		posts = db.scalars(
+			select(Post)
+			.where(Post.author_username == username)
+			.order_by(Post.created_at)
+		).all()
+	return render_template('profile.html', username=username, user=user, posts=posts)
 
 if __name__ == '__main__':
 	app.run()
