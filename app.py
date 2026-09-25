@@ -7,7 +7,7 @@ from flask import Flask, flash, redirect, render_template, url_for, session, req
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session
 from models import Base, Post, User
-from wtforms import DateField, StringField, PasswordField, validators
+from wtforms import DateField, StringField, PasswordField, TextAreaField, validators
 from flask_wtf import FlaskForm
 
 app = Flask(__name__)
@@ -99,6 +99,9 @@ class RegistrationForm(FlaskForm):
     location = StringField('Location', [validators.Length(max=80)])
     bio = StringField('Something fun', [validators.Length(max=120)])
 
+class PostForm(FlaskForm):
+	content = TextAreaField('', [validators.Length(max=5000)])
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	return render_template('index.html')
@@ -121,10 +124,12 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
 	form = RegistrationForm()
-
 	if form.validate_on_submit():
 		username = form.username.data
-		password = form.password.data
+		password_hash = bcrypt.hashpw(
+    		form.password.data.encode("utf-8"),
+    		bcrypt.gensalt()
+		).decode("utf-8")
 		birthday = form.birthday.data
 		fullname = form.fullname.data
 		location = form.location.data
@@ -137,10 +142,7 @@ def register():
 
 			db.add(User(
 				username=username,
-				password_hash=bcrypt.hashpw(
-					password.encode("utf-8"),
-					bcrypt.gensalt()
-				).decode("utf-8"),
+				password_hash=password_hash,
 				birthday=birthday or None,
 				fullname=fullname or None,
 				location=location or None,
@@ -163,9 +165,20 @@ def profile(username):
 		posts = db.scalars(
 			select(Post)
 			.where(Post.author_username == username)
-			.order_by(Post.created_at)
+			.order_by(Post.created_at.desc())
 		).all()
-	return render_template('profile.html', username=username, user=user, posts=posts)
+
+	form = PostForm()
+	if form.validate_on_submit():
+		with Session(engine) as db:
+			db.add(Post(
+				content=form.content.data,
+				author_username=session["name"],
+				created_at=datetime.now()
+			))
+			db.commit()
+		return redirect(url_for("profile", username=username))
+	return render_template('profile.html', username=username, user=user, posts=posts, form=form)
 
 if __name__ == '__main__':
 	app.run()

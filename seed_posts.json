@@ -2,7 +2,19 @@
     {
         "id": 1,
         "author_username": "amara",
-        "content": "This is my first post!",
-        "created_at": "2025-09-25T09:31:17"
+        "content": "This is my first post! Here I can write any story I want. Not sure about the maximum length yet, but I'll find out later.",
+        "created_at": "2025-09-23T09:31:17"
+    },
+    {
+        "id": 2,
+        "author_username": "amara",
+        "content": "So I went out for a quick walk and somehow ended up helping a lost duck cross the road. 🦆 No idea where it came from, but it followed me home, sat on my doorstep for 10 minutes, then waddled away like nothing happened. Best Friday ever.",
+        "created_at": "2025-09-25T10:52:08"
+    },
+    {
+        "id": 3,
+        "author_username": "amara",
+        "content": "And a third one.",
+        "created_at": "2025-09-25T11:02:40"
     }
 ]

@@ -30,6 +30,6 @@ class Post(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     author_username: Mapped[str] = mapped_column(ForeignKey("users.username"), nullable=False)
-    content: Mapped[str] = mapped_column(String(500), nullable=False)
+    content: Mapped[str] = mapped_column(String(5000), nullable=False)
     created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow, nullable=False)
     author: Mapped[User] = relationship(back_populates="posts")

@@ -2,10 +2,6 @@
 
 {% block content %}
     <div class="centered container">
-        {% if current_user == username %}
-            <p>This is my profile.</p>
-        {% endif %}
-
         {% if user %}
             <div class="profile-card">
                 <img class="avatar" src="{{ url_for('static', filename=user.avatar or 'user-avatar.jpg') }}">
@@ -17,12 +13,24 @@
                     <p>Something fun: {{user.something_fun if user.something_fun else ''}}</p>
                 </div>
             </div>
-            <div class="posts">
+
+            <div class="post-overview">
                 <h2>Posts</h2>
+                {% if current_user == username %}
+                    <form method="post">
+                        {{ form.hidden_tag() }}
+                        {{ form.content(rows=4, maxlength=5000) }}
+                        <input type="submit" value="Post!">
+                    </form>
+                {% endif %}
                 {% for post in posts %}
-                    <p>{{ post.content }}</p>
+                    <div class="post">
+                        <p class="post-date">{{ post.created_at.strftime('%d %B %Y %H:%M') }}</p>
+                        <p>{{ post.content }}</p>
+                    </div>
                 {% endfor %}
             </div>
+            
         {% else %}
             <p>Profile not found.</p>
         {% endif %}
