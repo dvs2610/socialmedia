@@ -211,7 +211,7 @@ button:focus-visible, input[type="submit"]:focus-visible, a:focus-visible {
     overflow-wrap: anywhere;
 }
 
-.post-date {
+.post-date, .no-posts {
     display: inline-block;
     color: var(--muted-color);
     border-bottom: 2px solid var(--primary-color);

@@ -8,7 +8,7 @@
                 <div class="profile-card-info">
                     <p>Username: {{user.username}}</p>
                     <p>Name: {{user.fullname if user.fullname else ''}}</p>
-                    <p>Birthday: {{user.birthday.strftime('%d-%m-%Y') if user.birthday else ''}}</p>
+                    <p>Birthday: {{user.birthday.strftime('%d %B %Y') if user.birthday else ''}}</p>
                     <p>Location: {{user.location if user.location else ''}}</p>
                     <p>Something fun: {{user.something_fun if user.something_fun else ''}}</p>
                 </div>
@@ -23,12 +23,16 @@
                         <input type="submit" value="Post!">
                     </form>
                 {% endif %}
-                {% for post in posts %}
-                    <div class="post">
-                        <p class="post-date">{{ post.created_at.strftime('%d %B %Y %H:%M') }}</p>
-                        <p>{{ post.content }}</p>
-                    </div>
-                {% endfor %}
+                {% if posts %}
+                    {% for post in posts %}
+                        <div class="post">
+                            <p class="post-date">{{ post.created_at.strftime('%d %B %Y %H:%M') }}</p>
+                            <p>{{ post.content }}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h3 class="no-posts">No posts</h3>
+                {% endif %}
             </div>
             
         {% else %}
