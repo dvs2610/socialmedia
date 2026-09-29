@@ -23,6 +23,10 @@
     padding: 0;
 }
 
+html {
+    scrollbar-gutter: stable;
+}
+
 html, body {
     width: 100%;
     height: 100%;
