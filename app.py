@@ -99,8 +99,16 @@ class RegistrationForm(FlaskForm):
     location = StringField('Location', [validators.Length(max=80)])
     bio = StringField('Something fun', [validators.Length(max=120)])
 
+class LoginForm(FlaskForm):
+	username = StringField('Username', [validators.DataRequired()], render_kw={"placeholder": "Username"})
+	password = PasswordField('Password', [validators.DataRequired()], render_kw={"placeholder": "Password"})
+
 class PostForm(FlaskForm):
-	content = TextAreaField('', [validators.Length(max=5000)])
+    content = TextAreaField(
+        '',
+        validators=[validators.Length(max=5000)],
+        render_kw={"placeholder": "Write a post..."}
+    )
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -110,16 +118,17 @@ def index():
 def login():
 	if session.get("name"):
 		return redirect(url_for("index"))
-	if request.method == "POST":
-		username = request.form.get("username", "")
-		password = request.form.get("password", "")
+	form = LoginForm()
+	if form.validate_on_submit():
+		username = form.username.data
+		password = form.password.data
 		with Session(engine) as db:
 			user = db.scalar(select(User).where(User.username == username))
 		if user and bcrypt.checkpw(password.encode("utf-8"), user.password_hash.encode("utf-8")):
 			session["name"] = user.username
 			return redirect(url_for("index"))
 		flash("The username and password combination is incorrect.", "error")
-	return render_template('login.html')
+	return render_template('login.html', form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

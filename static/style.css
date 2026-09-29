@@ -1,10 +1,18 @@
 :root {
-    --primary-color: sandybrown;
-    --primary-color-semi-transparent: rgba(244, 164, 96, 0.5);
-    --secondary-color: white;
+    --primary-color: #df634f;
+    --primary-color-hover: #c84e3e;
+    --primary-color-semi-transparent: rgba(223, 99, 79, 0.24);
+    --accent-color: #237f83;
+    --accent-soft: #e1f0ef;
+    --secondary-color: #ffffff;
+    --page-color: #f2f6f5;
+    --text-color: #263539;
+    --muted-color: #66777a;
+    --border-color: rgba(38, 53, 57, 0.14);
     --font-family: Arial, sans-serif;
-    --box-shadow-large: 0 0 8px rgba(0, 0, 0, 0.5);
-    --box-shadow-small: 0 0 4px rgba(0, 0, 0, 0.3);
+    --nav-gradient: linear-gradient(110deg, #164f5c 0%, #176e75 58%, #258d87 100%);
+    --box-shadow-small: 0 2px 8px rgba(31, 62, 64, 0.08);
+    --box-shadow-large: 0 12px 28px rgba(31, 62, 64, 0.16);
     --border-radius: 8px;
     --nav-height: 60px;
 }
@@ -15,11 +23,17 @@
     padding: 0;
 }
 
+html {
+    scrollbar-gutter: stable;
+}
+
 html, body {
     width: 100%;
     height: 100%;
     font-family: var(--font-family);
-    background-color: var(--secondary-color);
+    color: var(--text-color);
+    background-color: var(--page-color);
+    line-height: 1.5;
 }
 
 a, a:visited {
@@ -44,72 +58,115 @@ a, a:visited {
 .container {
     min-height: calc(100vh - var(--nav-height));
     padding: 2rem;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
+    background-color: var(--secondary-color);
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
 }
 
 nav {
     display: flex;
     align-items: center;
-    background-color: var(--primary-color);
+    background: var(--nav-gradient);
     color: var(--secondary-color);
-    box-shadow: var(--box-shadow-large);
+    box-shadow: var(--box-shadow-small);
     height: var(--nav-height);
 }
 
+nav h1 {
+    color: var(--secondary-color);
+}
+
 input[type="text"], input[type="password"], input[type="date"], textarea {
-    padding: 0.25rem;
-    border: 1px solid #ccc;
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
+    font: inherit;
+}
+
+input[type="text"]:focus, input[type="password"]:focus,
+input[type="date"]:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-color-semi-transparent);
+}
+
+textarea {
+    resize: vertical;
 }
 
 form {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
 }
 
 label {
     font-weight: bold;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
 }
 
 .error {
     font-weight: bold;
-    color: red;
+    color: var(--primary-color-hover);
 }
 
 button, input[type="submit"] {
     margin-right: auto;
     max-width: 150px;
     padding: 0.5rem 1rem;
-    color: var(--primary-color);
-    background-color: var(--secondary-color);
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
     box-shadow: var(--box-shadow-small);
     font-weight: bold;
+    transition: background-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
 }
 
-button:hover {
-    background-color: lightgray;
-    color: black;
+button:hover, input[type="submit"]:hover {
+    background-color: var(--primary-color-hover);
+    box-shadow: var(--box-shadow-large);
+    transform: translateY(-1px);
+}
+
+button:focus-visible, input[type="submit"]:focus-visible, a:focus-visible {
+    outline: 3px solid var(--primary-color-semi-transparent);
+    outline-offset: 3px;
+}
+
+.profile-preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-small);
 }
 
 .profile-preview img.avatar {
     width: 100px;
     height: 100px;
-    border: 2px solid var(--primary-color-semi-transparent);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow-small);
+    border: 3px solid var(--secondary-color);
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--accent-color), var(--box-shadow-small);
+    object-fit: cover;
 }
 
 .profile-card img.avatar {
     width: 250px;
     height: 250px;
-    border: 3px solid var(--primary-color-semi-transparent);
+    border: 3px solid var(--accent-soft);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow-small);
+    object-fit: cover;
 }
 
 .profile-card {
@@ -126,14 +183,20 @@ button:hover {
 }
 
 .profile-card-info p + p {
-    border-top: 1px solid rgb(220, 220, 220);
-    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 0.75rem;
 }
 
 .grid-profiles {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    row-gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1rem;
+}
+
+.profile-preview:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow-large);
 }
 
 .post-overview {
@@ -144,21 +207,36 @@ button:hover {
 }
 
 .post {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow-small);
-    padding: 0.75rem;
+    padding: 1rem 1.15rem;
+    overflow-wrap: anywhere;
 }
 
-.post-date {
+.post-date, .no-posts {
     display: inline-block;
-    color: rgba(0, 0, 0, 0.5);
-    border-bottom: 1px solid rgb(220, 220, 220);
+    color: var(--muted-color);
+    border-bottom: 2px solid var(--primary-color);
     margin-bottom: 0.75rem;
+    padding-bottom: 0.25rem;
 }
 
 
-@media screen and (max-width: 400px) {
-  .navigation, .container {
-    padding: 1rem;
-  }
+@media screen and (max-width: 600px) {
+        .navigation, .container {
+                padding: 1.25rem;
+        }
+
+        .profile-card {
+                align-items: center;
+                flex-direction: column;
+                gap: 1rem;
+        }
+
+        .profile-card img.avatar {
+                width: min(220px, 70vw);
+                height: min(220px, 70vw);
+        }
 }
