@@ -72,10 +72,6 @@ nav {
     height: var(--nav-height);
 }
 
-nav h1 {
-    color: var(--secondary-color);
-}
-
 input[type="text"], input[type="password"], input[type="date"], textarea {
     width: 100%;
     padding: 0.65rem 0.75rem;
@@ -154,7 +150,6 @@ button:focus-visible, input[type="submit"]:focus-visible, a:focus-visible {
 .profile-preview img.avatar {
     width: 100px;
     height: 100px;
-    border: 3px solid var(--secondary-color);
     border-radius: 50%;
     box-shadow: 0 0 0 2px var(--accent-color), var(--box-shadow-small);
     object-fit: cover;
