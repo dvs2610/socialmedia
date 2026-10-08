@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="centered container">
+        {% if current_user %}
+            <p>Hi, {{ current_user }}!</p>
+        {% endif %}
+
+        <h2>Profiles</h2>
+        <div class="grid-profiles">
+            {% for user in all_users %}
+                <a href="{{ url_for('profile', username=user.username) }}">
+                    <div class="profile-preview">
+                        <img class="avatar" src="{{ url_for('static', filename=user.avatar or 'user-avatar.jpg') }}">
+                        <h3>{{ user.username }}</h3>
+                    </div>
+                </a>
+            {% else %}
+                <p>No users found.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

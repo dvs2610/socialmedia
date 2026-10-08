@@ -6,18 +6,19 @@
             <p>Hi, {{ current_user }}!</p>
         {% endif %}
 
-        <h2>Profiles</h2>
-        <div class="grid-profiles">
-            {% for user in all_users %}
-                <a href="{{ url_for('profile', username=user.username) }}">
-                    <div class="profile-preview">
-                        <img class="avatar" src="{{ url_for('static', filename=user.avatar or 'user-avatar.jpg') }}">
-                        <h3>{{ user.username }}</h3>
+        <h2>Posts</h2>
+        <div class="post-overview">
+            {% if all_posts %}
+                {% for post in all_posts %}
+                    <div class="post">
+                        <!-- add author as link to profile -->
+                        <p class="post-date">{{ post.created_at.strftime('%d %B %Y %H:%M') }}</p>
+                        <p>{{ post.content }}</p>
                     </div>
-                </a>
+                {% endfor %}
             {% else %}
-                <p>No users found.</p>
-            {% endfor %}
+                <h3 class="no-posts">No posts</h3>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

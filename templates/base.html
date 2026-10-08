@@ -11,7 +11,11 @@
         <div class="centered navigation">
             <a href="{{ url_for('index') }}"><h1>Social Media</h1></a>
             {% if session.get('name') %}
-                <a href="{{url_for('logout')}}"><button>Logout</button></a>
+                <div>
+                    <a href="{{url_for('users')}}"><button>Users</button></a>
+                    <a href="{{url_for('profile', username=session['name'])}}"><button>My profile</button></a>
+                    <a href="{{url_for('logout')}}"><button>Logout</button></a>
+                </div>
             {% else %}
                 <a href="{{url_for('login')}}"><button>Login</button></a>
             {% endif %}

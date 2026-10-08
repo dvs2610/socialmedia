@@ -86,6 +86,13 @@ def all_users():
 			"all_users": db.scalars(select(User)).all()
 		}
 
+@app.context_processor
+def all_posts():
+	with Session(engine) as db:
+		return {
+			"all_posts": db.scalars(select(Post)).all()
+		}
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username', [validators.Length(min=4, max=10)])
     password = PasswordField('Password', [
@@ -113,6 +120,10 @@ class PostForm(FlaskForm):
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	return render_template('index.html')
+
+@app.route('/users', methods=['GET', 'POST'])
+def users():
+	return render_template('users.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
