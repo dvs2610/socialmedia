@@ -14,4 +14,4 @@ Create virtual environment, install Flask and run app
 * python -m flask
 * python -m flask --app app run --debug
 
-The first time the app starts, it creates `socialmedia.db` and loads the example users from `seed_users.json`. Existing users are left unchanged, so the seed process is safe to run every time the app starts. The example users all use `testpassword` until login functionality is implemented.
+The first time the app starts, it creates `socialmedia.db` and loads the example users and posts from `seed_users.json` and `seed_posts.json`. Existing users and posts are left unchanged, so the seed process is safe to run every time the app starts. The example users all use `testpassword` until login functionality is implemented.
