@@ -8,16 +8,18 @@
 
         <h2>Profiles</h2>
         <div class="grid-profiles">
-            {% for user in all_users %}
-                <a href="{{ url_for('profile', username=user.username) }}">
-                    <div class="profile-preview">
-                        <img class="avatar" src="{{ url_for('static', filename=user.avatar or 'user-avatar.jpg') }}">
-                        <h3>{{ user.username }}</h3>
-                    </div>
-                </a>
+            {% if users %}
+                {% for user in users %}
+                    <a href="{{ url_for('profile', username=user.username) }}">
+                        <div class="profile-preview">
+                            <img class="avatar" src="{{ url_for('static', filename=user.avatar or 'user-avatar.jpg') }}">
+                            <h3>{{ user.username }}</h3>
+                        </div>
+                    </a>
+                {% endfor %}
             {% else %}
                 <p>No users found.</p>
-            {% endfor %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}

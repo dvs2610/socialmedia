@@ -8,8 +8,8 @@
 
         <h2>Posts</h2>
         <div class="post-overview">
-            {% if all_posts %}
-                {% for post in all_posts %}
+            {% if posts %}
+                {% for post in posts %}
                     <div class="post">
                         <a href="{{url_for('profile', username=post.author_username)}}">{{post.author_username}}</a>
                         <p class="post-date">{{ post.created_at.strftime('%d %B %Y %H:%M') }}</p>
