@@ -11,7 +11,7 @@
             {% if all_posts %}
                 {% for post in all_posts %}
                     <div class="post">
-                        <!-- add author as link to profile -->
+                        <a href="{{url_for('profile', username=post.author_username)}}">{{post.author_username}}</a>
                         <p class="post-date">{{ post.created_at.strftime('%d %B %Y %H:%M') }}</p>
                         <p>{{ post.content }}</p>
                     </div>

@@ -16,5 +16,71 @@
         "author_username": "amara",
         "content": "And a third one.",
         "created_at": "2025-09-25T11:02:40"
+    },
+    {
+        "id": 4,
+        "author_username": "zayn",
+        "content": "Spent the afternoon digging through a box of records at the market. Came home with a jazz album I had never heard of and it is already on repeat.",
+        "created_at": "2025-09-26T14:18:00"
+    },
+    {
+        "id": 5,
+        "author_username": "zayn",
+        "content": "Sunday plans: coffee, a new record, and absolutely no rushing anywhere.",
+        "created_at": "2025-09-28T10:05:00"
+    },
+    {
+        "id": 6,
+        "author_username": "lina",
+        "content": "Morning run done before the city woke up. The canals were so quiet today.",
+        "created_at": "2025-09-27T07:12:00"
+    },
+    {
+        "id": 7,
+        "author_username": "mateo",
+        "content": "The tiny robot can finally follow a line without driving straight into the table leg. Small victories.",
+        "created_at": "2025-09-26T18:42:00"
+    },
+    {
+        "id": 8,
+        "author_username": "mateo",
+        "content": "Looking for a good name for a robot the size of a coffee mug. Suggestions welcome.",
+        "created_at": "2025-09-29T16:20:00"
+    },
+    {
+        "id": 9,
+        "author_username": "mateo",
+        "content": "Update: the robot is called Pico, and it has already knocked over exactly one houseplant.",
+        "created_at": "2025-10-01T12:35:00"
+    },
+    {
+        "id": 10,
+        "author_username": "riley",
+        "content": "Game night was meant to be a quick one. Three hours later, nobody had moved from the table and we were negotiating a rematch.",
+        "created_at": "2025-09-28T21:14:00"
+    },
+    {
+        "id": 11,
+        "author_username": "riley",
+        "content": "Any board game recommendations for a group that enjoys clever strategy but still wants to finish before midnight?",
+        "created_at": "2025-10-02T17:50:00"
+    },
+    {
+        "id": 12,
+        "author_username": "kenji",
+        "content": "Took my film camera out in Leiden this afternoon. The light on the old brick streets was worth carrying it around all day.",
+        "created_at": "2025-09-30T15:08:00"
+    },
+    {
+        "id": 13,
+        "author_username": "sofia",
+        "content": "Made pancakes for breakfast and accidentally made enough for the entire building. Neighbours are now very well fed.",
+        "created_at": "2025-10-01T09:22:00"
+    },
+    {
+        "id": 14,
+        "author_username": "sofia",
+        "content": "Testing a new pancake topping tomorrow. Thinking apple and cinnamon. What would you add?",
+        "created_at": "2025-10-03T19:03:00"
     }
 ]
