@@ -82,6 +82,14 @@ def check_logged_in():
 		return redirect(url_for('login'))
 
 
+@app.context_processor
+def current_user():
+	# Used in profile.html
+	return {
+		"current_user": session.get("name") or None
+	}
+
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username', [validators.Length(min=4, max=10)], render_kw={"placeholder": "Pick your own unique username"})
     password = PasswordField('Password', [
