@@ -134,6 +134,11 @@ button:focus-visible, input[type="submit"]:focus-visible, a:focus-visible {
     outline-offset: 3px;
 }
 
+.redirect-register {
+    font-weight: bold;
+    margin-top: 2rem;
+}
+
 .profile-preview {
     display: flex;
     flex-direction: column;

@@ -10,6 +10,7 @@ from models import Base, Post, User
 from wtforms import DateField, StringField, PasswordField, TextAreaField, validators
 from flask_wtf import FlaskForm
 
+
 app = Flask(__name__)
 SECRET_KEY_FILE = Path(__file__).with_name("secret_key.txt")
 if not SECRET_KEY_FILE.exists():
@@ -17,10 +18,13 @@ if not SECRET_KEY_FILE.exists():
 app.config["SECRET_KEY"] = SECRET_KEY_FILE.read_text(encoding="utf-8").strip()
 engine = create_engine("sqlite:///socialmedia.db", echo=True)
 
+
 SEED_USERS_FILE = Path(__file__).with_name("seed_users.json")
 SEED_POSTS_FILE = Path(__file__).with_name("seed_posts.json")
 
+
 def initialize_database():
+	"""Sets up database, loads users and posts, creates seed users and posts if not yet existing."""
 	Base.metadata.create_all(engine)
 
 	with SEED_USERS_FILE.open(encoding="utf-8") as seed_file:
@@ -62,35 +66,34 @@ def initialize_database():
 			
 		db.commit()
 
+
 initialize_database()
+
 
 @app.before_request
 def check_logged_in():
-	# prevent endless loop from login page itself and exception for static (css) and register
+	"""Checks before every page request if there is a user is currently logged in. If not, redirects to login page"""
+	
+	# Prevent endless loop from login page to itself and exceptions for static (css) and register/create account page.
 	if request.endpoint in {"login", "static", "register"}:
 		return None
 	
 	if not session.get("name"):
 		return redirect(url_for('login'))
 
-@app.context_processor
-def current_user():
-	return {
-		"current_user": session.get("name") or None
-	}
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', [validators.Length(min=4, max=10)])
+    username = StringField('Username', [validators.Length(min=4, max=10)], render_kw={"placeholder": "Pick your own unique username"})
     password = PasswordField('Password', [
 		validators.Length(min=8, max=32),
         validators.DataRequired(),
         validators.EqualTo('confirm', message='Passwords don\'t match.')
-    ])
-    confirm = PasswordField('Confirm Password')
-    birthday = DateField('Birthday')
-    fullname = StringField('Full name', [validators.Length(max=60)])
-    location = StringField('Location', [validators.Length(max=80)])
-    bio = StringField('Something fun', [validators.Length(max=120)])
+    ], render_kw={"placeholder": "Create a password"})
+    confirm = PasswordField('Confirm Password', render_kw={"placeholder": "Repeat your password"})
+    birthday = DateField('Birthday', render_kw={"placeholder": "Birthday"})
+    fullname = StringField('Full name', [validators.Length(max=60)], render_kw={"placeholder": "Full name"})
+    location = StringField('Location', [validators.Length(max=80)], render_kw={"placeholder": "Location"})
+    bio = StringField('Something fun', [validators.Length(max=120)], render_kw={"placeholder": "Fun facts!"})
 
 class LoginForm(FlaskForm):
 	username = StringField('Username', [validators.DataRequired()], render_kw={"placeholder": "Username"})
@@ -103,6 +106,7 @@ class PostForm(FlaskForm):
         render_kw={"placeholder": "Write a post..."}
     )
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	with Session(engine) as db:
@@ -112,16 +116,19 @@ def index():
 		).all()
 	return render_template('index.html', posts=posts)
 
+
 @app.route('/users', methods=['GET', 'POST'])
 def users():
 	with Session(engine) as db:
 		users = db.scalars(select(User)).all()
 	return render_template('users.html', users=users)
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	if session.get("name"):
 		return redirect(url_for("index"))
+	
 	form = LoginForm()
 	if form.validate_on_submit():
 		username = form.username.data
@@ -131,8 +138,10 @@ def login():
 		if user and bcrypt.checkpw(password.encode("utf-8"), user.password_hash.encode("utf-8")):
 			session["name"] = user.username
 			return redirect(url_for("index"))
-		flash("The username and password combination is incorrect.", "error")
+		form.password.errors.append("Invalid username or password.")
+		
 	return render_template('login.html', form=form)
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -165,11 +174,13 @@ def register():
 		return redirect(url_for("index"))
 	return render_template('register.html', form=form)
 
+
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
 	if session.get("name"):
 		session["name"] = None
 	return redirect(url_for("index"))
+
 
 @app.route('/<username>', methods=['GET', 'POST'])
 def profile(username):
@@ -192,6 +203,7 @@ def profile(username):
 			db.commit()
 		return redirect(url_for("profile", username=username))
 	return render_template('profile.html', username=username, user=user, posts=posts, form=form)
+
 
 if __name__ == '__main__':
 	app.run()

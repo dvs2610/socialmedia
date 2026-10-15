@@ -15,8 +15,7 @@ class User(Base):
     __tablename__ = "users"
     
     username: Mapped[str] = mapped_column(String(10), primary_key=True)
-    # later add nullable=False to password_hash, but now ok for testing
-    password_hash: Mapped[str] = mapped_column(String(255))
+    password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
     avatar: Mapped[Optional[str]]
     fullname: Mapped[Optional[str]] = mapped_column(String(80))
     birthday: Mapped[Optional[date]]
@@ -31,5 +30,5 @@ class Post(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     author_username: Mapped[str] = mapped_column(ForeignKey("users.username"), nullable=False)
     content: Mapped[str] = mapped_column(String(5000), nullable=False)
-    created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(default=datetime.now, nullable=False)
     author: Mapped[User] = relationship(back_populates="posts")
