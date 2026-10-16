@@ -1,14 +1,14 @@
 import bcrypt
 import json
 import secrets
+from forms import RegistrationForm, LoginForm, PostForm
 from pathlib import Path
 from datetime import date, datetime
-from flask import Flask, flash, redirect, render_template, url_for, session, request
+from flask import Flask, abort, redirect, render_template, url_for, session, request
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session
 from models import Base, Post, User
-from wtforms import DateField, StringField, PasswordField, TextAreaField, validators
-from flask_wtf import FlaskForm
+from flask_wtf.csrf import CSRFProtect
 
 
 app = Flask(__name__)
@@ -16,6 +16,7 @@ SECRET_KEY_FILE = Path(__file__).with_name("secret_key.txt")
 if not SECRET_KEY_FILE.exists():
 	SECRET_KEY_FILE.write_text(secrets.token_hex(32), encoding="utf-8")
 app.config["SECRET_KEY"] = SECRET_KEY_FILE.read_text(encoding="utf-8").strip()
+CSRFProtect(app)
 engine = create_engine("sqlite:///socialmedia.db", echo=True)
 
 
@@ -88,31 +89,6 @@ def current_user():
 	return {
 		"current_user": session.get("name") or None
 	}
-
-
-class RegistrationForm(FlaskForm):
-    username = StringField('Username', [validators.Length(min=4, max=10)], render_kw={"placeholder": "Pick your own unique username"})
-    password = PasswordField('Password', [
-		validators.Length(min=8, max=32),
-        validators.DataRequired(),
-        validators.EqualTo('confirm', message='Passwords don\'t match.')
-    ], render_kw={"placeholder": "Create a password"})
-    confirm = PasswordField('Confirm Password', render_kw={"placeholder": "Repeat your password"})
-    birthday = DateField('Birthday', render_kw={"placeholder": "Birthday"})
-    fullname = StringField('Full name', [validators.Length(max=60)], render_kw={"placeholder": "Full name"})
-    location = StringField('Location', [validators.Length(max=80)], render_kw={"placeholder": "Location"})
-    bio = StringField('Something fun', [validators.Length(max=120)], render_kw={"placeholder": "Fun facts!"})
-
-class LoginForm(FlaskForm):
-	username = StringField('Username', [validators.DataRequired()], render_kw={"placeholder": "Username"})
-	password = PasswordField('Password', [validators.DataRequired()], render_kw={"placeholder": "Password"})
-
-class PostForm(FlaskForm):
-    content = TextAreaField(
-        '',
-        validators=[validators.Length(max=5000)],
-        render_kw={"placeholder": "Write a post..."}
-    )
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -188,6 +164,24 @@ def logout():
 	if session.get("name"):
 		session["name"] = None
 	return redirect(url_for("index"))
+
+
+@app.route('/posts/<int:post_id>/delete', methods=['POST'])
+def delete_post(post_id):
+	with Session(engine) as db:
+		post = db.get(Post, post_id)
+		if post is None:
+			abort(404)
+		if post.author_username != session["name"]:
+			abort(403)
+		username = post.author_username
+		db.delete(post)
+		db.commit()
+
+	# if user was on home page when deleting a post, redirects back to index. Otherwise redirects to profile page.
+	if request.form.get("return_to") == "index":
+		return redirect(url_for("index"))
+	return redirect(url_for("profile", username=username))
 
 
 @app.route('/<username>', methods=['GET', 'POST'])

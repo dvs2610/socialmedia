@@ -16,6 +16,13 @@
                         </a>
                         <p class="post-date">{{ post.created_at.strftime('%d %B %Y %H:%M') }}</p>
                         <p>{{ post.content }}</p>
+                        {% if post.author_username == current_user %}
+                            <form method="post" action="{{ url_for('delete_post', post_id=post.id) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="return_to" value="index">
+                                <input type="submit" value="Delete post">
+                            </form>
+                        {% endif %}
                     </div>
                 {% endfor %}
             {% else %}

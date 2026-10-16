@@ -64,12 +64,18 @@ a, a:visited {
 }
 
 nav {
+    position: fixed;
+    width: 100%;
+    height: var(--nav-height);
     display: flex;
     align-items: center;
     background: var(--nav-gradient);
     color: var(--secondary-color);
     box-shadow: var(--box-shadow-small);
-    height: var(--nav-height);
+}
+
+main {
+    padding-top: var(--nav-height);
 }
 
 input[type="text"], input[type="password"], input[type="date"], textarea {
