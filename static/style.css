@@ -207,6 +207,8 @@ button:focus-visible, input[type="submit"]:focus-visible, a:focus-visible {
 }
 
 .post {
+    display: flex;
+    flex-direction: column;
     background-color: var(--secondary-color);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
@@ -216,11 +218,24 @@ button:focus-visible, input[type="submit"]:focus-visible, a:focus-visible {
 }
 
 .post-date, .no-posts {
+    max-width: fit-content;
     display: inline-block;
     color: var(--muted-color);
     border-bottom: 2px solid var(--primary-color);
     margin-bottom: 0.75rem;
     padding-bottom: 0.25rem;
+}
+
+.post-profile-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.post-profile-link .avatar {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
 }
 
 
