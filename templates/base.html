@@ -9,11 +9,13 @@
 <body>
     <nav>
         <div class="centered navigation">
-            <a href="{{ url_for('index') }}"><h1>Social Media</h1></a>
+            <a class="home-text" href="{{ url_for('index') }}"><h1>Social Media</h1></a>
             {% if session.get('name') %}
                 <div>
+                    <a class="home-button" href="{{ url_for('index') }}"><button>Home</button></a>
                     <a href="{{url_for('users')}}"><button>Users</button></a>
-                    <a href="{{url_for('profile', username=session['name'])}}"><button>My profile</button></a>
+                    <a class="above-370px" href="{{url_for('profile', username=session['name'])}}"><button>My profile</button></a>
+                    <a class="under-370px" href="{{url_for('profile', username=session['name'])}}"><button>Me</button></a>
                     <a href="{{url_for('logout')}}"><button>Logout</button></a>
                 </div>
             {% else %}

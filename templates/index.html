@@ -20,7 +20,7 @@
                             <form method="post" action="{{ url_for('delete_post', post_id=post.id) }}">
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="return_to" value="index">
-                                <input type="submit" value="Delete post">
+                                <input type="submit" class="delete-post" value="Delete post">
                             </form>
                         {% endif %}
                     </div>
