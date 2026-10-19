@@ -1,3 +1,5 @@
+import os
+
 import bcrypt
 import json
 import secrets
@@ -6,9 +8,10 @@ from pathlib import Path
 from datetime import date, datetime
 from flask import Flask, abort, redirect, render_template, url_for, session, request
 from sqlalchemy import create_engine, select
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from models import Base, Post, User
 from flask_wtf.csrf import CSRFProtect
+from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
@@ -52,6 +55,7 @@ def initialize_database():
 				fullname=seed_user.get("fullname"),
 				location=seed_user.get("location"),
 				something_fun=seed_user.get("something_fun"),
+				profile_pic=seed_user.get("profile_pic")
 			))
 
 		for seed_post in seed_posts:
@@ -96,6 +100,7 @@ def index():
 	with Session(engine) as db:
 		posts = db.scalars(
 			select(Post)
+			.options(joinedload(Post.author))
 			.order_by(Post.created_at.desc())
 		).all()
 	return render_template('index.html', posts=posts)
@@ -104,7 +109,7 @@ def index():
 @app.route('/users', methods=['GET', 'POST'])
 def users():
 	with Session(engine) as db:
-		users = db.scalars(select(User)).all()
+		users = db.scalars(select(User).order_by(User.username)).all()
 	return render_template('users.html', users=users)
 
 
@@ -140,11 +145,26 @@ def register():
 		fullname = form.fullname.data
 		location = form.location.data
 		bio = form.bio.data
+		profile_pic = form.profile_pic.data
+		profile_pic_filename = None
+
+		if profile_pic and profile_pic.filename:
+			safe_original_filename = secure_filename(profile_pic.filename)
+			extension = os.path.splitext(safe_original_filename)[1].lower()
+			if extension not in {'.jpg', '.jpeg', '.png'}:
+				form.profile_pic.errors.append("Please upload a JPG or PNG image.")
+				return render_template('register.html', form=form)
+			profile_pic_filename = f"{secrets.token_hex(16)}{extension}"
 
 		with Session(engine) as db:
 			if db.scalar(select(User).where(User.username == username)):
 				form.username.errors.append("That username is already taken.")
 				return render_template('register.html', form=form)
+
+			if profile_pic_filename:
+				profile_pic_directory = os.path.join(app.static_folder, 'profile_pics')
+				os.makedirs(profile_pic_directory, exist_ok=True)
+				profile_pic.save(os.path.join(profile_pic_directory, profile_pic_filename))
 
 			db.add(User(
 				username=username,
@@ -153,6 +173,7 @@ def register():
 				fullname=fullname or None,
 				location=location or None,
 				something_fun=bio or None,
+				profile_pic=profile_pic_filename
 			))
 			db.commit()
 		return redirect(url_for("index"))

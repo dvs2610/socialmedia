@@ -16,7 +16,7 @@ class User(Base):
     
     username: Mapped[str] = mapped_column(String(10), primary_key=True)
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
-    avatar: Mapped[Optional[str]]
+    profile_pic: Mapped[Optional[str]]
     fullname: Mapped[Optional[str]] = mapped_column(String(80))
     birthday: Mapped[Optional[date]]
     location: Mapped[Optional[str]] = mapped_column(String(80))

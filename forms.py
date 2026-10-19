@@ -1,4 +1,4 @@
-from wtforms import DateField, StringField, PasswordField, TextAreaField, validators
+from wtforms import DateField, StringField, PasswordField, TextAreaField, validators, FileField
 from flask_wtf import FlaskForm
 
 class RegistrationForm(FlaskForm):
@@ -9,10 +9,11 @@ class RegistrationForm(FlaskForm):
         validators.EqualTo('confirm', message='Passwords don\'t match.')
     ], render_kw={"placeholder": "Create a password"})
     confirm = PasswordField('Confirm Password', render_kw={"placeholder": "Repeat your password"})
-    birthday = DateField('Birthday', render_kw={"placeholder": "Birthday"})
+    birthday = DateField('Birthday', validators=[validators.Optional()], render_kw={"placeholder": "Birthday"})
     fullname = StringField('Full name', [validators.Length(max=60)], render_kw={"placeholder": "Full name"})
     location = StringField('Location', [validators.Length(max=80)], render_kw={"placeholder": "Location"})
     bio = StringField('Something fun', [validators.Length(max=120)], render_kw={"placeholder": "Fun facts!"})
+    profile_pic = FileField('Profile picture')
 
 
 class LoginForm(FlaskForm):
