@@ -161,7 +161,7 @@ button:focus-visible, input[type="submit"]:focus-visible, a:focus-visible {
     box-shadow: var(--box-shadow-small);
 }
 
-.profile-preview img.avatar {
+.profile-preview img.profile-pic {
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -169,7 +169,7 @@ button:focus-visible, input[type="submit"]:focus-visible, a:focus-visible {
     object-fit: cover;
 }
 
-.profile-card img.avatar {
+.profile-card img.profile-pic {
     width: 250px;
     height: 250px;
     border: 3px solid var(--accent-soft);
@@ -239,7 +239,7 @@ button:focus-visible, input[type="submit"]:focus-visible, a:focus-visible {
     gap: 0.5rem;
 }
 
-.post-profile-link .avatar {
+.post-profile-link .profile-pic {
     width: 1rem;
     height: 1rem;
     border-radius: 50%;
@@ -268,7 +268,7 @@ input[type="submit"].delete-post:hover {
             gap: 1rem;
     }
 
-    .profile-card img.avatar {
+    .profile-card img.profile-pic {
             width: min(220px, 70vw);
             height: min(220px, 70vw);
     }

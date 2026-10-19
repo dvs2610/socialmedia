@@ -4,7 +4,7 @@
     <div class="centered container">
         {% if user %}
             <div class="profile-card">
-                <img class="avatar" src="{{ url_for('static', filename=user.avatar or 'user-avatar.jpg') }}">
+                <img class="profile-pic" src="{{ url_for('static', filename='profile_pics/' ~ (user.profile_pic or 'profile-pic.jpg')) }}">
                 <div class="profile-card-info">
                     <p>Username: {{user.username}}</p>
                     <p>Name: {{user.fullname if user.fullname else ''}}</p>

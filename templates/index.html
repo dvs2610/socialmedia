@@ -9,8 +9,7 @@
                     <div class="post">
                         <a href="{{url_for('profile', username=post.author_username)}}">
                             <div class="post-profile-link">
-                                <!-- if errors occur when adding avatars, try removing this img (filename post.author_username.avatar) -->
-                                <img class="avatar" src="{{ url_for('static', filename=post.author_username.avatar or 'user-avatar.jpg') }}">
+                                <img class="profile-pic" src="{{ url_for('static', filename='profile_pics/' ~ (post.author.profile_pic or 'profile-pic.jpg')) }}">
                                 <p>{{post.author_username}}</p>
                             </div>
                         </a>
