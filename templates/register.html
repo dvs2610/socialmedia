@@ -5,38 +5,56 @@
         <h1>Register</h1>
         <form method="post" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
-            {% for field_name, errors in form.errors.items() %}
-                {% for error in errors %}
-                    <p class="error">{{ field_name }}: {{ error }}</p>
-                {% endfor %}
-            {% endfor %}
+
             {{ form.username.label }}
             {{ form.username() }}
             {% for error in form.username.errors %}
                 <p class="error">{{ error }}</p>
             {% endfor %}
+
             {{ form.password.label }}
             {{ form.password() }}
-            {{ form.confirm.label }}
-            {{ form.confirm() }}
             {% for error in form.password.errors %}
                 <p class="error">{{ error }}</p>
             {% endfor %}
+
+            {{ form.confirm.label }}
+            {{ form.confirm() }}
+            {% for error in form.confirm.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
             {{ form.birthday.label }}
             {{ form.birthday() }}
+            {% for error in form.birthday.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
             {{ form.fullname.label }}
             {{ form.fullname() }}
+            {% for error in form.fullname.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
             {{ form.location.label }}
             {{ form.location() }}
+            {% for error in form.location.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
             {{ form.bio.label }}
             {{ form.bio() }}
+            {% for error in form.bio.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
             {{ form.profile_pic.label }}
             {{ form.profile_pic() }}
             {% for error in form.profile_pic.errors %}
                 <p class="error">{{ error }}</p>
             {% endfor %}
-            <input type="submit" value="Create account">
 
+            <input type="submit" value="Create account">
         </form>
     </div>
 {% endblock %}

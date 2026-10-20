@@ -14,13 +14,13 @@ class Base(DeclarativeBase):
 class User(Base):
     __tablename__ = "users"
     
-    username: Mapped[str] = mapped_column(String(10), primary_key=True)
+    username: Mapped[str] = mapped_column(String(30), primary_key=True)
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
     profile_pic: Mapped[Optional[str]]
-    fullname: Mapped[Optional[str]] = mapped_column(String(80))
+    fullname: Mapped[Optional[str]] = mapped_column(String(100))
     birthday: Mapped[Optional[date]]
-    location: Mapped[Optional[str]] = mapped_column(String(80))
-    something_fun: Mapped[Optional[str]] = mapped_column(String(250))
+    location: Mapped[Optional[str]] = mapped_column(String(100))
+    something_fun: Mapped[Optional[str]] = mapped_column(String(200))
     posts: Mapped[List["Post"]] = relationship(back_populates="author")
 
 

@@ -180,6 +180,7 @@ button:focus-visible, input[type="submit"]:focus-visible, a:focus-visible {
 
 .profile-card {
     display: flex;
+    align-items: flex-start;
     gap: 2rem;
 }
 
@@ -187,7 +188,12 @@ button:focus-visible, input[type="submit"]:focus-visible, a:focus-visible {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 100%;
+    flex: 1;
+    min-width: 0;
+}
+
+.profile-card-info p {
+    overflow-wrap: anywhere;
 }
 
 .profile-card-info p + p {
@@ -271,6 +277,11 @@ input[type="submit"].delete-post:hover {
     .profile-card img.profile-pic {
             width: min(220px, 70vw);
             height: min(220px, 70vw);
+    }
+
+    .profile-card-info {
+            flex: none;
+            width: 100%;
     }
 }
 
